@@ -14,7 +14,7 @@ class ConferencesTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('name')->label('Conference Name')
                     ->searchable(),
                 TextColumn::make('description')
                     ->searchable(),

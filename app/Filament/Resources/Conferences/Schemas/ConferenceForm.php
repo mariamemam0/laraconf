@@ -14,6 +14,7 @@ class ConferenceForm
         return $schema
             ->components([
                 TextInput::make('name')
+                    ->label('conference Name')
                     ->required(),
                 TextInput::make('description')
                     ->required(),
