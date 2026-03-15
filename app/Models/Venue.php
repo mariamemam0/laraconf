@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\Region;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +14,7 @@ class Venue extends Model
     {
         return [
             'id' => 'integer',
+            'region'=> Region::class,
         ];
     }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Filament\Resources\Conferences\Schemas;
 
+use App\Enums\Region;
+use App\Models\Venue;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\RichEditor;
@@ -40,10 +43,15 @@ class ConferenceForm
                     ->required(),
 
 
-                TextInput::make('region')
-                    ->required(),
+                 Select::make('region')
+                 ->live()
+                ->enum(Region::class)
+                ->options(Region::class),
                 Select::make('venue_id')
-                    ->relationship('venue', 'name'),
+                    ->relationship('venue', 'name', modifyQueryUsing: function (Builder $query,$get) {
+                        ray($get('region'));
+                        return $query->where('region', $get('region'));
+                    })
             ]);
     }
 }
