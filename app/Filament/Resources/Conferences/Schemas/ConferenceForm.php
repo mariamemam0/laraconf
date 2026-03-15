@@ -48,6 +48,9 @@ class ConferenceForm
                 ->enum(Region::class)
                 ->options(Region::class),
                 Select::make('venue_id')
+                ->searchable()
+                ->preload()
+                ->editOptionForm(Venue::getForm())
                     ->relationship('venue', 'name', modifyQueryUsing: function (Builder $query,$get) {
                         ray($get('region'));
                         return $query->where('region', $get('region'));
