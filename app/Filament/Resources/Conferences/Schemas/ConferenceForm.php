@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Conferences\Schemas;
 
+use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
@@ -14,16 +16,30 @@ class ConferenceForm
         return $schema
             ->components([
                 TextInput::make('name')
-                    ->label('conference Name')
+                    ->label('Conference Name')
+                    ->default('My Conference')
+                    ->helperText('This the name of the context')
+                    ->maxLength(60)
                     ->required(),
-                TextInput::make('description')
-                    ->required(),
+                RichEditor::make('description')
+                    ->required()
+                    ->disableToolbarButtons(['italic'])
+                    ,
                 DateTimePicker::make('start_date')
                     ->required(),
                 DateTimePicker::make('end_date')
                     ->required(),
-                TextInput::make('status')
+                    Checkbox::make('is_published')
+                      ->default(true),
+                Select::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Published',
+                        'archived' => 'Archived',
+                    ])
                     ->required(),
+
+
                 TextInput::make('region')
                     ->required(),
                 Select::make('venue_id')
