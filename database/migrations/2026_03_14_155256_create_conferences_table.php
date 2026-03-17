@@ -21,7 +21,7 @@ return new class extends Migration
             $table->boolean('is_published')->default(false);
             $table->string('status');
             $table->string('region');
-            $table->foreignId(Venue::class)->nullable();
+            $table->foreignIdFor(Venue::class)->nullable();
             $table->timestamps();
         });
     }

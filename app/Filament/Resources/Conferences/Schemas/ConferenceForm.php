@@ -26,6 +26,7 @@ class ConferenceForm
 {
     public static function configure(Schema $schema): Schema
     {
+        
         return $schema
             ->components([
             Section::make('Conference Details')
@@ -85,8 +86,17 @@ class ConferenceForm
                 Action::make('star')
                     ->label('Fill with Factory Data')
                     ->icon('heroicon-m-star')
+                    ->visible(function (string $operation) {
+                        if($operation !== 'create') {
+                            return false;
+                        }
+                        if(! app()->environment('local')) {
+                            return false;
+                        }
+                        return true;
+                    })
                     ->action(function($livewire){
-                       
+                    
                         $data = Conference::factory()->make()->toArray();
                          $livewire->form->fill($data);
                         ray('hello');
