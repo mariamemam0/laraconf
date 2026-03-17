@@ -3,11 +3,14 @@
 namespace App\Filament\Resources\Conferences\Schemas;
 
 use App\Enums\Region;
+use App\Models\Conference;
 use App\Models\Speaker;
 use App\Models\Venue;
+use Filament\Actions\Action;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\MarkdownEditor;
 use Filament\Forms\Components\Toggle;
+use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Fieldset;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Tabs;
@@ -77,6 +80,19 @@ class ConferenceForm
                         return $query->where('region', $get('region'));
                     }),
             ])->columnSpanFull(),
+
+            Actions::make([
+                Action::make('star')
+                    ->label('Fill with Factory Data')
+                    ->icon('heroicon-m-star')
+                    ->action(function($livewire){
+                       
+                        $data = Conference::factory()->make()->toArray();
+                         $livewire->form->fill($data);
+                        ray('hello');
+                    }),
+            ]),
         ]);
+
     }
 }
