@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Talks\Tables;
 
+use App\Enums\TalkLength;
 use App\Models\Talk;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
@@ -21,11 +22,13 @@ class TalksTable
     {
         return $table
             ->columns([
-                TextInputColumn::make('title')
-                    ->searchable()
+                TextColumn::make('title')
                     ->sortable()
-                    ->rules(['required','max:255'])
-                    ,
+                    ->searchable()
+                ->description(function (Talk $record) {
+                    return Str::limit($record->abstract, 40);
+                }),
+                    
                  ImageColumn::make('speaker.avatar')
                  ->circular()
                  ->label('Speaker Avatar')
@@ -42,6 +45,14 @@ class TalksTable
                 ->color(function($state){
                         return $state->getColor();
                 }),
+                IconColumn::make('length')
+                ->icon(function($state){
+                    return match($state){
+                        TalkLength::NORMAL => 'heroicon-o-megaphone',
+                        TalkLength::LIGHTNING => 'heroicon-o-bolt',
+                        TalkLength::KEYNOTE => 'heroicon-o-key',
+                    };
+                })
                
             ])
             ->filters([
