@@ -24,7 +24,9 @@ class TalksTable
 {
     public static function configure(Table $table): Table
     {
+        
         return $table
+            ->persistFiltersInSession()
             ->columns([
                 TextColumn::make('title')
                     ->sortable()
@@ -82,7 +84,9 @@ class TalksTable
             ->toolbarActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
-                ]),
-            ]);
+                ])
+             
+
+            ]) ;
     }
 }
