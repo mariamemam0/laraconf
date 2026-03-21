@@ -91,15 +91,15 @@ public static function infolist(Schema $shcema):Schema
                                 }),
                 ]),
             ])->columnSpanFull(),
+           
             Section::make('Other Information')
-            ->schema([
-                TextEntry::make('bio')
-                ->extraAttributes(['class'=>'prose'])
-                ->html(),
+                ->schema([
+                    TextEntry::make('bio')
+                        ->extraAttributes(['class' => 'prose dark:prose-invert'])
+                        ->html(),
+                    TextEntry::make('qualifications')->bulleted(),
+                ])
                 
-                TextEntry::make('qualifications'),
-                
-            ])
     ]);
 }
 
