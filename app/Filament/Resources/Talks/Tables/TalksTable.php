@@ -27,6 +27,9 @@ class TalksTable
         
         return $table
             ->persistFiltersInSession()
+           ->filtersTriggerAction(function ($action) {
+                return $action->button()->label('Filters');
+            })
             ->columns([
                 TextColumn::make('title')
                     ->sortable()
