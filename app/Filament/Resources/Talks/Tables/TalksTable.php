@@ -13,6 +13,8 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
@@ -56,7 +58,12 @@ class TalksTable
                
             ])
             ->filters([
-                //
+                TernaryFilter::make('new_talk'),
+                SelectFilter::make('speaker')
+                ->relationship('speaker','name')
+                ->multiple()
+                ->searchable()
+                ->preload(),
             ])
             ->recordActions([
                 EditAction::make(),
