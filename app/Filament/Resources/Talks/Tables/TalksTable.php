@@ -13,9 +13,11 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\TextInputColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Filters\TernaryFilter;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
 class TalksTable
@@ -64,6 +66,15 @@ class TalksTable
                 ->multiple()
                 ->searchable()
                 ->preload(),
+
+               Filter::make('has_avatar')
+               ->label('show only speakers whithout avatars')
+               ->toggle()
+               ->query(function($query){
+                return $query->whereHas('speaker',function(Builder $query){
+                     $query->whereNotNull('avatar');
+                });
+               })
             ])
             ->recordActions([
                 EditAction::make(),
