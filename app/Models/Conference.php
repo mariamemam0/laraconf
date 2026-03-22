@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Conference extends Model
 {
@@ -37,4 +38,11 @@ class Conference extends Model
     {
         return $this->belongsToMany(Talk::class);
     }
+
+
+    public function attendees():HasMany
+    {
+        return $this->hasMany(Attendee::class);
+    }
+
 }
