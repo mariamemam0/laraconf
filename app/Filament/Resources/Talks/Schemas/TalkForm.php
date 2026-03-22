@@ -9,18 +9,18 @@ use Filament\Schemas\Schema;
 
 class TalkForm
 {
-    public static function configure(Schema $schema): Schema
+    public static function configure($speakerId = null): array
     {
-        return $schema
-            ->components([
+        return [
                 TextInput::make('title')
                     ->required(),
                 Textarea::make('abstract')
                     ->required()
                     ->columnSpanFull(),
                 Select::make('speaker_id')
+                    ->hidden(fn() => $speakerId !== null)
                     ->relationship('speaker', 'name')
                     ->required(),
-            ]);
+            ];
     }
 }
