@@ -292,4 +292,4 @@
     </footer>
     <x-filament-actions::modals />
     @livewire('notifications')
-</div>
+</div> 

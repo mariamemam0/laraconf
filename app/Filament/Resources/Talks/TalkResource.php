@@ -13,14 +13,17 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class TalkResource extends Resource
 {
     protected static ?string $model = Talk::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    //protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
 
     protected static ?string $recordTitleAttribute = 'talk';
+    protected static UnitEnum|string|null $navigationGroup = 'Second Group';
+
 
     public static function form(Schema $schema): Schema
     {
